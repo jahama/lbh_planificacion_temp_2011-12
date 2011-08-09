@@ -1,0 +1,1891 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 10">
+<link id=Main-File rel=Main-File href="../lbh-defensa-5_1_v2_web.htm">
+<link rel=Preview href=preview.wmf>
+<meta name=Robots content=NoIndex>
+<script src=script.js></script><script><!--
+if( !(IsWin("PPTOtl")||IsWin("PPTNav")||IsWin("PPTOtlNav")) )
+{
+	obj = GetObj("Main-File")
+	parent.location.href=obj.href
+}
+var gOtlHiliteClr="#ffffff",gOtlNormalClr="#000000",gOtlActiveClr="#ffff00",gSelected="",gTxtState=false,gChildEntryTable=new Array()
+function Load()
+{
+	if( IsWin("PPTOtl" ) ){ LoadOtl(); parent.gOtlLoaded=true; return }
+	if( g_supportsPPTHTML ) {
+		if( IsWin("PPTNav" ) ){ LoadNav("NavObj",UpdNav); parent.gNavLoaded=true; return }
+		if( IsWin("PPTOtlNav" ) ){ LoadNav("OtlNavObj",UpdOtlNav); parent.gOtlNavLoaded=true; return }
+	}
+}
+function Upd(){ if( IsWin("PPTNav") ) LoadNav("NavObj",UpdNav) }
+function LoadNav( oId,UpdFunc )
+{
+	document.ondragstart=CancelDrag
+	document.onselectstart=CancelDrag
+	document.body.style.margin=2
+	UpdFunc()
+	obj=document.all.item(oId)
+	obj.style.display="block"
+	obj.style.visibility="visible"
+	document.bgColor="threedface"
+	if( parent.frames["PPTNts"] )
+		notesBtn.style.display = ""
+	if( parent.gHasNarration )
+		nb_voiceBorder.style.display = ""
+}
+function LoadOtl()
+{
+	var otl=GetObj("OtlObj")
+	otl.style.display="block"
+	otl.style.visibility="visible"
+	if( gOtlActiveClr == "" ) gOtlActiveClr=document.linkColor
+	if( gOtlHiliteClr == "" ) gOtlHiliteClr=document.fgColor
+	if( gOtlNormalClr == "" )
+		gOtlNormalClr=document.bgColor
+	else
+		document.bgColor=gOtlNormalClr
+	InitArray()
+	if( ObjExists( parent.gCurSld ) ) {
+		ChangeState( parent.gCurSld,gOtlNormalClr,gOtlHiliteClr )
+		gSelected=parent.gCurSld
+	}
+	else gSelected = -1
+	UpdOtl()
+}
+function UpdOtl(){ UpdIdx(parent.gCurSld) }
+function UpdIdx( idx )
+{
+	if( gSelected != idx ) {
+		if( gSelected > 0 )
+			ChangeState( gSelected,gOtlHiliteClr,gOtlNormalClr )
+		if( ObjExists( idx ) ) {
+			gSelected = idx
+			ChangeState( gSelected,gOtlNormalClr,gOtlHiliteClr )
+		}
+		else gSelected = -1
+	}
+	if( gTxtState != parent.gOtlTxtExp ) {
+		state = "block"
+		if( !parent.gOtlTxtExp )
+			state="none"
+		for(ii=0; ii<gChildEntryTable.length; ii++) {
+			obj=gChildEntryTable[ii];
+			if( obj.id == null ) continue;
+			if( obj.id.indexOf("PPTC") >= 0 )
+				obj.style.display=state;
+		}
+		gTxtState=parent.gOtlTxtExp
+		if( ObjExists( gSelected ) )
+			ChangeState( gSelected,gOtlNormalClr,gOtlHiliteClr )
+	}
+}
+function InitArray()
+{
+	count=0
+	var list=GetTags(document,"DIV");
+	for(ii=0; ii<list.length; ii++) {
+		obj=list.item(ii)
+		if( obj.id == null ) continue
+		if( obj.id.indexOf("PPTC") >= 0 )
+			gChildEntryTable[count++]=obj
+	}
+}
+function ChangeState( idx,fgColor,bgColor )
+{
+	obj=GetObj("PPTL"+idx)
+	obj.style.color=fgColor
+	obj=GetObj("PPTP"+idx)
+	obj.style.backgroundColor=bgColor
+}
+function ChgClr( o,clr ){ if( o.id != "PPTL"+gSelected ) o.style.color=clr }
+function Over( src ){ ChgClr(GetLink(src),gOtlActiveClr) }
+function Out( src ){ ChgClr(GetLink(src),gOtlHiliteClr) }
+function Follow(src){ window.location.href = GetLink(src).href; }
+function ObjExists( ii ) { obj=GetObj("PPTP"+ii ); return( obj ) }
+function GoToSld( href ){ UpdIdx(parent.GetSldNum(href)); parent.GoToSld( href ) }
+function CancelDrag(){ window.event.cancelBubble=true;window.event.returnValue=false}
+function GetLink(src)
+{
+   if(src.tagName=="A") return src
+   else return GetTags(src,"A").item(0)
+}
+function UpdNav()
+{
+	txt = "<center>";
+	if( parent.GetHrefObj( parent.gCurSld ).mOrigVis == 1 )
+		txt += "Diapositiva " + parent.GetCurSldNum() + " de " + parent.GetNumSlds()
+	else
+		txt += "Diapositiva oculta"
+	txt += "</center>";
+	nav_text.innerHTML = txt;
+	if( !parent.HasPrevSld() )
+		gBtnArr["nb_prev"].Enabled(0)
+	else
+		gBtnArr["nb_prev"].Enabled(1)
+	if( !parent.HasNextSld() )
+		gBtnArr["nb_next"].Enabled(0)
+	else
+		gBtnArr["nb_next"].Enabled(1)
+	gBtnArr["nb_nts"].SetEnabled()
+	gBtnArr["nb_nts"].SetFlag( parent.gHasNts )
+	gBtnArr["nb_sldshw"].Enabled(1)
+	gBtnArr["nb_voice"].Enabled(1)
+}
+function UpdOtlNav()
+{
+	gBtnArr["nb_otl"].SetEnabled();
+	if( parent.gOtlOpen )
+		gBtnArr["nb_otlTxt"].Enabled( true );
+	else
+		document.all.item("nb_otlTxtBorder").style.visibility = "hidden";
+}
+
+//--></script>
+<style>
+<!--.PTxt
+	{position:relative;
+	width:100%;
+	margin-top:5px;
+	padding-left:2px;
+	font-weight:bold;}
+.CTxt
+	{position:relative;
+	width:100%;
+	margin-top:5px;}
+a
+	{color:white;
+	text-decoration:none;}
+ul
+	{color:white;
+	margin-bottom:0px;
+	margin-left:20px;}
+.sldNum
+	{margin-top:5px;
+	color:white;}
+.button
+	{position:absolute;
+	width:32px;
+	height:20px;
+	border-style:solid;
+	border-width:1px;
+	border-color:threedface;}
+-->
+</style>
+</head>
+
+<body onload="Load()" style='margin:2px'>
+
+<div id=NavObj onload="Load()" onmouseover="BtnOnOver()"
+onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
+onkeypress="_KPH()" style='display:none;visibility:hidden'>
+<table id="notesBtn" style='position:absolute;display:none;width:70px' align=left cellpadding=0
+ cellspacing=0>
+ <td nowrap>
+ <div id="nb_ntsElem" align=center style='position:relative;padding:3px;
+ font-family:Arial;color:buttontext;font-size:9pt'><img src="notes_flag.gif"
+ border=0 id="notes_flag" style='display:none'><span
+style='mso-spacerun:yes'>  </span>Notas</div>
+ <div title="Mostrar u ocultar
+notas" id="nb_nts" style='position:absolute;top:0%;
+ left:0%;width:100%;height:100%'></div>
+ </td>
+</table>
+
+<table style='position:relative;width:70px' align=right cellpadding=0 cellspacing=0>
+ <td nowrap>
+ <div id="nb_sldshwText" title="Presentación
+con diapositivas a pantalla completa" align=center style='position:relative;margin-left:20px;padding:3px;
+ font-family:Arial;color:buttontext;font-size:9pt;cursor:default'>Presentación</div>
+ <div id="nb_sldshwBorder" title="Presentación
+con diapositivas a pantalla completa" style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+ <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_sldshw" style='position:relative;left:-254px'></div>
+ </div>
+ </td>
+ <td>
+ <div id="nb_voiceBorder" style='display:none;position:absolute;top:0;left:-40px;
+ width:20px;height:20px'>
+ <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_voice" title="Detener o reproducir narración" style='position:
+ relative;left:-290px'></div>
+ </div>
+ </td>
+</table>
+
+<table style='position:relative' align=center cellpadding=0 cellspacing=0>
+ <td nowrap>
+ <div id="nb_prevBorder" class=button style='left:-30px'>
+ <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_prev" title="Diapositiva anterior" style='position:relative;
+ left:0px'></div>
+ </div>
+ <span id="nav_text" style='position:relative;top:3px;width:100px;font-family:
+ Arial;color:buttontext;font-size:9pt'></span>
+ <div id="nb_nextBorder" class=button>
+ <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_next" title="Diapositiva siguiente" style='position:relative;
+ left:-90px'></div>
+ </div>
+ </td>
+</table>
+</div>
+
+<div id=OtlNavObj onload="Load()" onmouseover="BtnOnOver()"
+onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
+onkeypress="_KPH()" style='display:none;visibility:hidden'>
+
+<table style='position:relative;width:70px' align=left cellpadding=0 cellspacing=0>
+ <td nowrap><div title="Mostrar
+u ocultar esquema" id="nb_otl"
+ style='position:absolute;top:0%;left:0%;width:100%;height:100%;cursor:default'>
+ <div id="nb_otlElem" align=center style='position:relative;padding:3px;font-family:Arial;
+ color:buttontext;font-size:9pt'>Esquema</div></div>
+ </td>
+</table>
+
+<table style='position:relative' align=center cellpadding=0 cellspacing=0>
+ <td>
+ <div style='position:absolute;left:-18px;width:24px;height:20px;border-style:
+ solid;border-width:1px;border-color:threedface' id="nb_otlTxtBorder">
+ <div style='position:absolute;clip:rect(0px, 22px, 18px, 0px)'><img
+ src=buttons.gif id="nb_otlTxt" title="Expandir o contraer esquema"
+ style='position:relative;left:-157px'></div>
+ </div>
+ </td>
+</table>
+
+</div>
+
+<div id=OtlObj style='display:none;visibility:hidden;'>
+
+
+<table width="100%" style='font-family:Arial;font-size:9pt'>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>1</font></div>
+  </td>
+  <td width="100%">
+  <div id=PPTP1 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0001.htm');" id=PPTL1>C.B. HONDARRIBIA<br>
+    Defensa 5:1</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>2</font></div>
+  </td>
+  <td>
+  <div id=PPTP2 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0049.htm');" id=PPTL2>DEFENSA<span
+  style='mso-spacerun:yes'>   </span>5:1</a></font></div>
+  <div id=PPTC2 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <ul>
+    <li>Elección del sistema.</li>
+    <li>Descripción funcionamiento</li>
+    <li>Ideas<span style='mso-spacerun:yes'>  </span>eje<span
+        style='mso-spacerun:yes'>  </span>del<span style='mso-spacerun:yes'> 
+        </span>sistema</li>
+    <li>Funciones de los diferentes puestos</li>
+    <li>Resolución de competencias</li>
+    <li>Trabajo de técnica defensiva</li>
+    <li>Juego Colectivo Defensivo</li>
+    <li>Ayudas</li>
+    <li>Respuestas ante desdoblamientos.</li>
+    <li>Respuestas ante saques de falta</li>
+    <li>Defensa en superioridad/inferioridad</li>
+    <li>Salidas del Contraataque.</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>3</font></div>
+  </td>
+  <td>
+  <div id=PPTP3 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0002.htm');" id=PPTL3>CONCEPTO<span
+  style='mso-spacerun:yes'>  </span>ESPACIAL<span style='mso-spacerun:yes'> 
+  </span>DEL<span style='mso-spacerun:yes'>  </span>5:1</a></font></div>
+  <div id=PPTC3 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>VARIABLES :</li>
+   <li><span style='mso-spacerun:yes'>      </span>-<span
+       style='mso-spacerun:yes'>  </span>profunda</li>
+   <li><span style='mso-spacerun:yes'>      </span>-<span
+       style='mso-spacerun:yes'>  </span>tradicional</li>
+   <li><span style='mso-spacerun:yes'>      </span>-<span
+       style='mso-spacerun:yes'>  </span>en zona lateral</li>
+   <li><span style='mso-spacerun:yes'>      </span>-<span
+       style='mso-spacerun:yes'>  </span>avanzado en centro + lateral profundo</li>
+   <li><span style='mso-spacerun:yes'>      </span>-<span
+       style='mso-spacerun:yes'>  </span>avanzado en defensa<span
+       style='mso-spacerun:yes'>  </span>individual</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>4</font></div>
+  </td>
+  <td>
+  <div id=PPTP4 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0029.htm');" id=PPTL4>ELECCION DEL SISTEMA.</a></font></div>
+  <div id=PPTC4 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Análisis de tus jugadores.</li>
+   <li>Ajuste de responsabilidades.</li>
+   <li>Dificultar el juego de la 1ª línea.</li>
+   <li>Mejora en la salida de contraataque.</li>
+   <li>Evitar lanzamientos desde centro.</li>
+   <li>Coordinación con portero.</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>5</font></div>
+  </td>
+  <td>
+  <div id=PPTP5 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0050.htm');" id=PPTL5>DESCRIPCIÓN
+  FUNCIONAMIENTO</a></font></div>
+  <div id=PPTC5 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>A nivel general:</li>
+   <li>trabajar en bloque defensivo (buscando superioridad numerica en zona de
+       balón), utilizando</li>
+   <ul>
+    <li>basculación,</li>
+    <li>las coberturas y</li>
+    <li>el doblaje defensivo</li>
+    <li>como medios tácticos fundamentales.</li>
+   </ul>
+   <br>
+   <li>Así como</li>
+   <ul>
+    <li>la disuasión y</li>
+    <li>la interceptación</li>
+    <li>como formas individuales de actuación</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>6</font></div>
+  </td>
+  <td>
+  <div id=PPTP6 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0003.htm');" id=PPTL6>IDEAS<span
+  style='mso-spacerun:yes'>  </span>EJE<span style='mso-spacerun:yes'> 
+  </span>DEL<span style='mso-spacerun:yes'>  </span>SISTEMA</a></font></div>
+  <div id=PPTC6 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'> </span>Reforzar la zona central.
+       Triangulaciones.</li>
+   <li><span style='mso-spacerun:yes'> </span>Establecer diagonal<span
+       style='mso-spacerun:yes'>  </span>(avanz/lateral/exterior).</li>
+   <li><span style='mso-spacerun:yes'> </span>Marcaje del pivote<span
+       style='mso-spacerun:yes'>  </span>zonal.</li>
+   <li><span style='mso-spacerun:yes'> </span>Dificultar circulación de balón.</li>
+   <li><span style='mso-spacerun:yes'> </span>Impedir lanzamientos cómodos
+       desde 1ª línea.</li>
+   <li><span style='mso-spacerun:yes'> </span>Recuperación de balón y salidas
+       contraataque.</li>
+   <br>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>7</font></div>
+  </td>
+  <td>
+  <div id=PPTP7 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0030.htm');" id=PPTL7>FUNCIONES DEL AVANZADO</a></font></div>
+  <div id=PPTC7 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Dominio del juego 1x1 / si nos superan que sea POR EL DEBIL</li>
+   <li>Trabajo de anticipaciones e interceptaciones</li>
+   <li>Que no haya bloqueos.</li>
+   <li>Ayuda en el pase cruzado a los pivotes</li>
+   <li>Juego de flotación ,fintas defensivas</li>
+   <li>	(Flotar, dificultando y retardando la velocidad del movimiento de balón
+       de los adversarios (disuasión).)</li>
+   <li>Capacidad de recuperar balones</li>
+   <li>Cambio de oponente ante los cruces en la 1ª línea</li>
+   <li>Defensa de ayudas atrás y a laterales</li>
+   <li>	(Cerrar las trayectorias amplias hacia el centro de los laterales )</li>
+   <li>	( Ayuda en el pase cruzado a los pivotes)</li>
+   <li>Capacidad de transformar<span style='mso-spacerun:yes'>  </span>la
+       defensa ante las circulaciones de atacantes</li>
+   <ul>
+    <li>Pasando a un marcaje individual</li>
+    <li>Manteniéndose en su zona, pero bajando a 8-9 metros</li>
+   </ul>
+   <li>Astucia e inteligencia táctica</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>8</font></div>
+  </td>
+  <td>
+  <div id=PPTP8 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0053.htm');" id=PPTL8><span
+  style='mso-spacerun:yes'> </span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>9</font></div>
+  </td>
+  <td>
+  <div id=PPTP9 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0052.htm');" id=PPTL9>FUNCIONES AVANZADO (II)</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>10</font></div>
+  </td>
+  <td>
+  <div id=PPTP10 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0054.htm');" id=PPTL10>FUNCIONES DEL AVANZADO
+  (III)</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>11</font></div>
+  </td>
+  <td>
+  <div id=PPTP11 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0055.htm');" id=PPTL11>FUNCIONES DEL AVANZADO
+  (IV)</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>12</font></div>
+  </td>
+  <td>
+  <div id=PPTP12 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0056.htm');" id=PPTL12>FUNCIONES DEL AVANZADO
+  (V)</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>13</font></div>
+  </td>
+  <td>
+  <div id=PPTP13 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0031.htm');" id=PPTL13>FUNCIONES de los
+  EXTERIORES</a></font></div>
+  <div id=PPTC13 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Marcaje en proximidad : 6/9 metros</li>
+   <li>Dominio del 1x1 del par con balón y del 1x2.</li>
+   <li>Cortes de ritmo .Evitar penetraciones.</li>
+   <li>Ayudas a laterales<font face=Wingdings>à</font></li>
+   <li><font face=Arial>Ayudas al central </font><font face=Wingdings>à</font><font
+       face=Arial> En el marcaje a pivote si 2º ha salido.</font></li>
+   <li>Nunca debe de desdoblar por detrás suyo</li>
+   <li>Nuevas tareas ante desdoblamientos.</li>
+   <ul>
+    <li>Presión sobre el lateral de su zona</li>
+    <li>	En<span style='mso-spacerun:yes'>  </span>determinadas ocasiones (si
+        el lateral tiene calidad para jugar el 2 x 2) se puede plantear la
+        posibilidad de que el exterior PRESIONE SOBRE EL LATERAL.</li>
+    <li>Unirse al grupo</li>
+    <br>
+    <br>
+   </ul>
+   <li>Observación del juego por dentro del área.</li>
+   <li>Recuperación de balón y salidas a contraataque.</li>
+   <ul>
+    <li>Anticipar la salida</li>
+    <li><span style='mso-spacerun:yes'>   </span>(cuando un jugador atacante va
+        a lanzar, el extremo esta saliendo)</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>14</font></div>
+  </td>
+  <td>
+  <div id=PPTP14 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0057.htm');" id=PPTL14>FUNCIONES de los
+  EXTERIORES</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>15</font></div>
+  </td>
+  <td>
+  <div id=PPTP15 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0032.htm');" id=PPTL15>FUNCIONES DE LOS
+  LATERALES</a></font></div>
+  <div id=PPTC15 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Técnica de salidas a 8-9 metros.</li>
+   <li>	(en esta categoría no es necesario salir mas, pero si necesitamos ser
+       mas contundentes en en las salidas.)</li>
+   <li>1x2 entre el lateral propio y el pivote tanto con balón en el otro
+       lateral como en el extremo propio</li>
+   <li>Trabajo de presión al impar si pivote en zona contraria.</li>
+   <li>Acompañamientos y cambios de oponente.</li>
+   <li>Situaciones de anticipación.</li>
+   <li>Marcaje a pivote en zona exterior.</li>
+   <li>Ayudas : a central- avanzado- exterior.</li>
+   <li>Contrabloqueos.</li>
+   <li>Blocajes.</li>
+   <li>Misiones en contraataque.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>16</font></div>
+  </td>
+  <td>
+  <div id=PPTP16 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0033.htm');" id=PPTL16>FUNCIONES DEL CENTRAL.</a></font></div>
+  <div id=PPTC16 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Siempre en ZONA DE BALON</li>
+   <li>Posicion de base: LATERAL (nunca plano en 6 metros)</li>
+   <li>Salidas:</li>
+   <ul>
+    <li>En general muy poca. Trabajar amagos</li>
+    <li>Si el avanzado se ha desplazado mucho hacia un lateral, deberá ser más
+        profundo que ante 3:3.</li>
+   </ul>
+   <li>Marcaje al pivote, por delante / atrás.</li>
+   <li>Marcajes a distancia, desplazamientos.</li>
+   <li>Blocajes y colaboración con portero.</li>
+   <li>Cambios de oponente por deslizamientos.</li>
+   <li>Trabajo en líneas de pase, ayudas.</li>
+   <li>Dominio especial de alternativas defensivas.</li>
+   <li>Recuperaciones de balón.</li>
+   <li>Madurez psicológica. Hablar y dirigir defensa</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>17</font></div>
+  </td>
+  <td>
+  <div id=PPTP17 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0080.htm');" id=PPTL17>FUNCIONES DEL CENTRAL.</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>18</font></div>
+  </td>
+  <td>
+  <div id=PPTP18 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0059.htm');" id=PPTL18>CENTRAL :Resolución de
+  competencias</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>19</font></div>
+  </td>
+  <td>
+  <div id=PPTP19 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0060.htm');" id=PPTL19>RESOLUCION DE
+  COMPETENICAS</a></font></div>
+  <div id=PPTC19 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Idea de funcionamiento de la defensa</li>
+   <li>Donde debe estar cada jugador en cada momento</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>20</font></div>
+  </td>
+  <td>
+  <div id=PPTP20 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0061.htm');" id=PPTL20>&quot;Balón en A con
+  pivote...&quot;</a></font></div>
+  <div id=PPTC20 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Balón en A con pivote en zona contraria</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>21</font></div>
+  </td>
+  <td>
+  <div id=PPTP21 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0081.htm');" id=PPTL21>&quot;Balón en B&quot;</a></font></div>
+  <div id=PPTC21 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Balón en B</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>22</font></div>
+  </td>
+  <td>
+  <div id=PPTP22 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0082.htm');" id=PPTL22>&quot;Balón en C con
+  pivote...&quot;</a></font></div>
+  <div id=PPTC22 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Balón en C con pivote en zona de balon</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>23</font></div>
+  </td>
+  <td>
+  <div id=PPTP23 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0058.htm');" id=PPTL23>TRABAJO DE TECNICA
+  DEFENSIVA</a></font></div>
+  <div id=PPTC23 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Posición base.</li>
+   <li>Desplazamientos defensivos.</li>
+   <li>Disuasión.</li>
+   <li>Interceptación.</li>
+   <li>Acoso.</li>
+   <li>Desposesión.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>24</font></div>
+  </td>
+  <td>
+  <div id=PPTP24 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0063.htm');" id=PPTL24>TRABAJO TACTICO
+  COLECTIVO</a></font></div>
+  <div id=PPTC24 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Ver documento word “lbh_defensa_v2”</li>
+   <li>4.2 LAS INTENCIONES TÁCTICAS INDIVIDUALES</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>25</font></div>
+  </td>
+  <td>
+  <div id=PPTP25 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0034.htm');" id=PPTL25>TRABAJO TACTICO
+  COLECTIVO</a></font></div>
+  <div id=PPTC25 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>BASCULACIÓN</li>
+   <li>SALIDAS</li>
+   <li>CAMBIOS DE OPONENTE</li>
+   <li>MARCAJE DEL PIVOTE</li>
+   <li>DESLIZAMIENTOS</li>
+   <li>CONTRABLOQUEOS</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>26</font></div>
+  </td>
+  <td>
+  <div id=PPTP26 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0007.htm');" id=PPTL26>BASCULACIÓN</a></font></div>
+  <div id=PPTC26 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>CORRECCIONES.-</li>
+   <li><span style='mso-spacerun:yes'>  </span>Técnica desplazamiento</li>
+   <li><span style='mso-spacerun:yes'>  </span>pie adelantado</li>
+   <li><span style='mso-spacerun:yes'>  </span>trabajo con brazos</li>
+   <li><span style='mso-spacerun:yes'>  </span>Contactos visuales. Armado<span
+       style='mso-spacerun:yes'>  </span>pasador.</li>
+   <li><span style='mso-spacerun:yes'>  </span>Cabeza alta. Actitud ante
+       oponente</li>
+   <li><span style='mso-spacerun:yes'>  </span>“ pensar en el espacio “</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>27</font></div>
+  </td>
+  <td>
+  <div id=PPTP27 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0008.htm');" id=PPTL27>Basculaciones .
+  Trabajos .</a></font></div>
+  <div id=PPTC27 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Juego de cerrar puertas</li>
+   <li>Juegos de rugby</li>
+   <li>Grupos de cuatro .Movimientos balón y desplazamientos defensivos.</li>
+   <li>Trabajos físicos en grupos de cinco.</li>
+   <li>Cuatro defensores y cinco atacantes. Cerrar líneas de pase al pivote.</li>
+   <li>Trabajos en dos líneas con avanzado.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>28</font></div>
+  </td>
+  <td>
+  <div id=PPTP28 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0010.htm');" id=PPTL28>SALIDAS (I)</a></font></div>
+  <div id=PPTC28 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Correcciones</li>
+   <li><span style='mso-spacerun:yes'>  </span>Dominio de la distancia.</li>
+   <li><span style='mso-spacerun:yes'>  </span>movimientos de pies hacia atrás</li>
+   <li><span style='mso-spacerun:yes'>  </span>Uso de brazos, no levantarlos
+       antes de.</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>  </span>trabajar los contactos :</li>
+   <li><span style='mso-spacerun:yes'>          </span>manos sobre pecho.</li>
+   <li><span style='mso-spacerun:yes'>          </span>manos sobre brazo
+       ejecutor</li>
+   <li><span style='mso-spacerun:yes'>          </span>manos para blocaje,
+       colaborar con portero</li>
+   <li><span style='mso-spacerun:yes'>  </span>aprender a ganar líneas de pase.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>29</font></div>
+  </td>
+  <td>
+  <div id=PPTP29 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0011.htm');" id=PPTL29>SALIDAS(II)</a></font></div>
+  <div id=PPTC29 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>  </span>Técnica de pies y brazos.</li>
+   <li><span style='mso-spacerun:yes'>  </span>Acompañamientos . Laterales/
+       extremos.</li>
+   <li><span style='mso-spacerun:yes'>  </span>Robos de balón en bote.</li>
+   <li><span style='mso-spacerun:yes'>  </span>Evitar fíntas, saber retroceder
+       un paso.</li>
+   <li><span style='mso-spacerun:yes'>  </span>Aprendizaje de los amagos.</li>
+   <li><span style='mso-spacerun:yes'>  </span>Coordinación con compañeros
+       próximos.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>30</font></div>
+  </td>
+  <td>
+  <div id=PPTP30 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0012.htm');" id=PPTL30>SALIDAS (III)</a></font></div>
+  <div id=PPTC30 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Trabajos ante impares</li>
+   <li>Cuándo.</li>
+   <ul>
+    <li><span style='mso-spacerun:yes'>  </span>extremo sobre lateral.</li>
+    <li><span style='mso-spacerun:yes'>  </span>lateral sobre extremo en
+        circulación.</li>
+    <li><span style='mso-spacerun:yes'>  </span>lateral sobre central</li>
+    <li><span style='mso-spacerun:yes'>  </span>avanzado sobre lateral</li>
+   </ul>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>31</font></div>
+  </td>
+  <td>
+  <div id=PPTP31 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0013.htm');" id=PPTL31>ANTICIPACIONES ante
+  OPONENTES</a></font></div>
+  <div id=PPTC31 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>CONCEPTO</li>
+   <li><span style='mso-spacerun:yes'> </span>Observaciones del defensor.
+       Referencias.</li>
+   <li><span style='mso-spacerun:yes'>    </span>Extremos sobre oponente.
+       Pase<span style='mso-spacerun:yes'>  </span>B/A B/C</li>
+   <li><span style='mso-spacerun:yes'>    </span>Laterales. Ante cruce en zona
+       contraria.</li>
+   <li><span style='mso-spacerun:yes'>    </span>Avanzado. Si extremo juega
+       hacia exterior</li>
+   <li><span style='mso-spacerun:yes'>                       </span>cruce
+       lateral/extremo</li>
+   <li><span style='mso-spacerun:yes'>        </span>Continuidades / Cambios de
+       sistema</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>32</font></div>
+  </td>
+  <td>
+  <div id=PPTP32 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0076.htm');" id=PPTL32>Mecanismos de
+  Anticipación</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>33</font></div>
+  </td>
+  <td>
+  <div id=PPTP33 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0077.htm');" id=PPTL33><span
+  style='mso-spacerun:yes'> </span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>34</font></div>
+  </td>
+  <td>
+  <div id=PPTP34 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0014.htm');" id=PPTL34>CAMBIOS<span
+  style='mso-spacerun:yes'>  </span>DE<span style='mso-spacerun:yes'> 
+  </span>OPONENTE</a></font></div>
+  <div id=PPTC34 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>CONSERVACIÓN DE PUESTOS.</li>
+   <li>DEFENSORES A MISMA ALTURA.</li>
+   <li>EVITAR ESPACIOS INTERMEDIOS.</li>
+   <li>HABLAR LOS CAMBIOS.</li>
+   <li>MOMENTO DE INTERVENCION.</li>
+   <li></li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>35</font></div>
+  </td>
+  <td>
+  <div id=PPTP35 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0015.htm');" id=PPTL35>CAMBIO DE OPONENTE</a></font></div>
+  <div id=PPTC35 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>LATERAL<span style='mso-spacerun:yes'>  </span>/<span
+       style='mso-spacerun:yes'>  </span>AVANZADO.-</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>    </span>TRABAJAR A DISTINTAS ALTURAS</li>
+   <li><span style='mso-spacerun:yes'>           </span>-<span
+       style='mso-spacerun:yes'>  </span>retrocesos / subidas.</li>
+   <li><span style='mso-spacerun:yes'>           </span>-<span
+       style='mso-spacerun:yes'>  </span>llevar oponentes a zona lateral.</li>
+   <br>
+   <br>
+   <li>TRABAJAR CON DIVERSAS DISTANCIAS.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>36</font></div>
+  </td>
+  <td>
+  <div id=PPTP36 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0016.htm');" id=PPTL36>CAMBIO DE OPONENTE</a></font></div>
+  <div id=PPTC36 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>CENTRAL<span style='mso-spacerun:yes'>  </span>/<span
+       style='mso-spacerun:yes'>  </span>LATERAL.-</li>
+   <li><span style='mso-spacerun:yes'>       </span>- cambios de pivote.</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>      </span>- colocación de pivote entre
+       exter/ lat.</li>
+   <li><span style='mso-spacerun:yes'>      </span>- colocación de pivote
+       entre<span style='mso-spacerun:yes'>  </span>lat/ central.</li>
+   <li><span style='mso-spacerun:yes'>      </span>-alternar cambios en zona
+       balón/no balón.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>37</font></div>
+  </td>
+  <td>
+  <div id=PPTP37 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0038.htm');" id=PPTL37>CAMBIOS DE OPONENTE.-</a></font></div>
+  <div id=PPTC37 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>EXTERIOR/ LATERAL.-</li>
+   <li><span style='mso-spacerun:yes'>     </span>ANTE<span
+       style='mso-spacerun:yes'>  </span>CIRCULACIÓN EXTREMO.-</li>
+   <li><span style='mso-spacerun:yes'>          </span>-técnicas de
+       acompañamiento/entrega</li>
+   <li><span style='mso-spacerun:yes'>     </span>ANTE CRUCE / PERMUTA<span
+       style='mso-spacerun:yes'>  </span>LAT/EXTMº</li>
+   <li><span style='mso-spacerun:yes'>           </span>-trabajar hacia la
+       banda</li>
+   <li><span style='mso-spacerun:yes'>           </span>- posición de los pies</li>
+   <li></li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>38</font></div>
+  </td>
+  <td>
+  <div id=PPTP38 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0039.htm');" id=PPTL38>DESLIZAMIENTOS.-</a></font></div>
+  <div id=PPTC38 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Defensores a distintas alturas.</li>
+   <li>Defensor atrasado se desplaza por detrás</li>
+   <li>No hay cambio de oponente</li>
+   <li>Ayuda a resolver cambios en zona pivote.</li>
+   <li>Casos mas frecuentes:</li>
+   <li><span style='mso-spacerun:yes'>       </span>B fija avanzado/ A-C
+       circulan por detrás</li>
+   <li><span style='mso-spacerun:yes'>       </span>D/F circulan por detrás
+       defensores lateral.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>39</font></div>
+  </td>
+  <td>
+  <div id=PPTP39 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0017.htm');" id=PPTL39>MARCAJE DE PIVOTE</a></font></div>
+  <div id=PPTC39 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Técnicas de trabajo: por delante/atrás</li>
+   <li><span style='mso-spacerun:yes'>                                  
+       </span>en tres cuartos</li>
+   <li><span style='mso-spacerun:yes'>              </span>Interceptación de
+       pases a pivote/s Respuestas defensivas:</li>
+   <li><span style='mso-spacerun:yes'>                </span>- si pivote entre
+       exterior/ lateral</li>
+   <li><span style='mso-spacerun:yes'>                </span>- si pivote entre
+       central / lateral</li>
+   <li><span style='mso-spacerun:yes'>     </span>Los cambios en el marcaje.</li>
+   <li><span style='mso-spacerun:yes'>     </span>Control del pivote que
+       circula tras avanzado</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>40</font></div>
+  </td>
+  <td>
+  <div id=PPTP40 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0040.htm');" id=PPTL40>CONTRABLOQUEOS.-</a></font></div>
+  <div id=PPTC40 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>PRINCIPIOS GENERALES.-</li>
+   <li><span style='mso-spacerun:yes'>   </span>Lo mejor : evitarlo-
+       anticipación</li>
+   <li><span style='mso-spacerun:yes'>   </span>Dotar de información. Avisos
+       hablados</li>
+   <li><span style='mso-spacerun:yes'>   </span>Ganar líneas de pase</li>
+   <li><span style='mso-spacerun:yes'>   </span>Uso de cambios oponente</li>
+   <li><span style='mso-spacerun:yes'>   </span>Técnicas :<span
+       style='mso-spacerun:yes'>    </span>campo visual</li>
+   <li><span style='mso-spacerun:yes'>                        </span>trabajo de
+       pies</li>
+   <li><span style='mso-spacerun:yes'>                        </span>contactos
+       físicos/control brazos</li>
+   <li></li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>41</font></div>
+  </td>
+  <td>
+  <div id=PPTP41 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0019.htm');" id=PPTL41>CONTRABLOQUEOS</a></font></div>
+  <div id=PPTC41 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>EN SEGUNDA LÍNEA DEFENSIVA.-</li>
+   <li><span style='mso-spacerun:yes'>        </span>a/<span
+       style='mso-spacerun:yes'>   </span>Sobre avanzado.-</li>
+   <li><span style='mso-spacerun:yes'>                  </span>- por parte de
+       laterales.</li>
+   <li><span style='mso-spacerun:yes'>                  </span>-<span
+       style='mso-spacerun:yes'>  </span>realizado por pivote</li>
+   <li><span style='mso-spacerun:yes'>                  </span>-<span
+       style='mso-spacerun:yes'>  </span>por el extremo en circulación</li>
+   <li><span style='mso-spacerun:yes'>                  </span>-<span
+       style='mso-spacerun:yes'>  </span>bloqueo frontal del central</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>42</font></div>
+  </td>
+  <td>
+  <div id=PPTP42 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0020.htm');" id=PPTL42>CONTRABLOQUEOS</a></font></div>
+  <div id=PPTC42 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>EN<span style='mso-spacerun:yes'>  </span>SEGUNDA LÍNEA DEFENSIVA.</li>
+   <li><span style='mso-spacerun:yes'>         </span>b – sobre lateral en 9
+       metros.-</li>
+   <li><span style='mso-spacerun:yes'>                 </span>-realizado por
+       extremo</li>
+   <li><span style='mso-spacerun:yes'>                 </span>- diagonal del
+       pivote</li>
+   <li><span style='mso-spacerun:yes'>                 </span>- diagonal del
+       central</li>
+   <li><span style='mso-spacerun:yes'>      </span>Trabajos ante bloqueos
+       exteriores</li>
+   <li><span
+       style='mso-spacerun:yes'>                                             
+       </span>interiores</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>43</font></div>
+  </td>
+  <td>
+  <div id=PPTP43 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0041.htm');" id=PPTL43>CONTRABLOQUEOS.-</a></font></div>
+  <div id=PPTC43 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>EN PRIMERA LÍNEA DEFENSIVA.-</li>
+   <li><span style='mso-spacerun:yes'>     </span>- sobre primeros
+       defensores.(exteriores)</li>
+   <li><span style='mso-spacerun:yes'>     </span>- sobre los segundos /
+       central</li>
+   <li><span style='mso-spacerun:yes'>     </span>- actuación ante bloqueos
+       frontales</li>
+   <li><span
+       style='mso-spacerun:yes'>                                              
+       </span>laterales</li>
+   <li><span style='mso-spacerun:yes'>      </span>-<span
+       style='mso-spacerun:yes'>  </span>bloqueos por zona exterior/interior
+       def.</li>
+   <li><span style='mso-spacerun:yes'>      </span>-<span
+       style='mso-spacerun:yes'>  </span>trabajos<span
+       style='mso-spacerun:yes'>  </span>específicos contrabloqueo</li>
+   <li><span style='mso-spacerun:yes'>      </span>-<span
+       style='mso-spacerun:yes'>  </span>la colaboración con el portero.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>44</font></div>
+  </td>
+  <td>
+  <div id=PPTP44 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0064.htm');" id=PPTL44>AYUDAS</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>45</font></div>
+  </td>
+  <td>
+  <div id=PPTP45 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0021.htm');" id=PPTL45>AYUDAS.-</a></font></div>
+  <div id=PPTC45 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Principio básico funcionamiento sistema.</li>
+   <li>Actuación ante fallo del defensor ante oponente con balón.</li>
+   <li>Concepto de intervención decisiva.</li>
+   <li>Concepto de “ganar tiempo” / disuadir</li>
+   <li>Educar<span style='mso-spacerun:yes'>  </span>la atención / prioridades
+       defensores.</li>
+   <li>Construir un “estado permanente” defensivo.</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>46</font></div>
+  </td>
+  <td>
+  <div id=PPTP46 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0035.htm');" id=PPTL46>AYUDAS. VARIABLES</a></font></div>
+  <div id=PPTC46 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Al<span style='mso-spacerun:yes'>  </span>Avanzado.</li>
+   <ul>
+    <li>No deberá ser superado por el pto fuerte del atacante.</li>
+   </ul>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>47</font></div>
+  </td>
+  <td>
+  <div id=PPTP47 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0066.htm');" id=PPTL47>AYUDAS: Al<span
+  style='mso-spacerun:yes'>  </span>Avanzado – Punto debil</a></font></div>
+  <div id=PPTC47 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Salido por lado contrario de pivote (Paso a paso)</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>48</font></div>
+  </td>
+  <td>
+  <div id=PPTP48 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0069.htm');" id=PPTL48>AYUDAS: Al<span
+  style='mso-spacerun:yes'>  </span>Avanzado – Punto debil</a></font></div>
+  <div id=PPTC48 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Salido por lado contrario de pivote</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>49</font></div>
+  </td>
+  <td>
+  <div id=PPTP49 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0042.htm');" id=PPTL49>AYUDAS.<span
+  style='mso-spacerun:yes'>  </span>VARIABLES.</a></font></div>
+  <div id=PPTC49 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'> </span>A<span style='mso-spacerun:yes'> 
+       </span>los<span style='mso-spacerun:yes'>  </span>Laterales.-</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>            </span>-<span
+       style='mso-spacerun:yes'>  </span>por parte del avanzado</li>
+   <li></li>
+   <li><span style='mso-spacerun:yes'>            </span>-<span
+       style='mso-spacerun:yes'>  </span>por parte de los exteriores</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>            </span>-<span
+       style='mso-spacerun:yes'>  </span>por el central</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>50</font></div>
+  </td>
+  <td>
+  <div id=PPTP50 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0071.htm');" id=PPTL50>AYUDAS: Al segundo –
+  lat. der. diestro</a></font></div>
+  <div id=PPTC50 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Salida por dentro (Paso a paso)</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>51</font></div>
+  </td>
+  <td>
+  <div id=PPTP51 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0043.htm');" id=PPTL51>AYUDAS. VARIABLES.-</a></font></div>
+  <div id=PPTC51 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>  </span>A<span
+       style='mso-spacerun:yes'>  </span>los Exteriores.-</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>             </span>-<span
+       style='mso-spacerun:yes'>   </span>por los laterales</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>             </span>-<span
+       style='mso-spacerun:yes'>   </span>por el central</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>52</font></div>
+  </td>
+  <td>
+  <div id=PPTP52 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0044.htm');" id=PPTL52>AYUDAS. VARIABLES.-</a></font></div>
+  <div id=PPTC52 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>  </span>Al<span
+       style='mso-spacerun:yes'>  </span>Central.-</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>              </span>-<span
+       style='mso-spacerun:yes'>  </span>por los laterales</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>              </span>-<span
+       style='mso-spacerun:yes'>  </span>por el avanzado</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>              </span>-<span
+       style='mso-spacerun:yes'>  </span>por los exteriores</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>53</font></div>
+  </td>
+  <td>
+  <div id=PPTP53 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0065.htm');" id=PPTL53>RESPUESTA A
+  DESDOBLAMIENTOS</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>54</font></div>
+  </td>
+  <td>
+  <div id=PPTP54 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0022.htm');" id=PPTL54>RESPUESTA A
+  DESDOBLAMIENTOS</a></font></div>
+  <div id=PPTC54 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'> </span>Bases<span
+       style='mso-spacerun:yes'>  </span>Generales de<span
+       style='mso-spacerun:yes'>  </span>Actuación.-</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>            </span>Distinguir entre
+       respuesta de sistema</li>
+   <li><span style='mso-spacerun:yes'>                                  
+       </span>y</li>
+   <li><span style='mso-spacerun:yes'>                            
+       </span>estrategias<span style='mso-spacerun:yes'>  </span>puntuales</li>
+   <li><span style='mso-spacerun:yes'>                                   
+       </span>o</li>
+   <li><span style='mso-spacerun:yes'>                            
+       </span>cambios de sistema</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>55</font></div>
+  </td>
+  <td>
+  <div id=PPTP55 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0045.htm');" id=PPTL55>DESDOBLAMIENTO DE
+  EXTREMOS</a></font></div>
+  <div id=PPTC55 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>EXTERIOR.</li>
+   <ul>
+    <li>se responsabiliza lateral</li>
+    <li>flota , controla falsos desdobles</li>
+    <li>cambia oponente con central</li>
+    <li>transforma sistema en 5+1</li>
+    <li>transforma sistema en 4:1+1</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>56</font></div>
+  </td>
+  <td>
+  <div id=PPTP56 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0023.htm');" id=PPTL56><span
+  style='mso-spacerun:yes'> </span>DESDOBLAMIENTO DE LATERAL</a></font></div>
+  <div id=PPTC56 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'> </span>LATERALES DEFENSORES.-</li>
+   <li><span style='mso-spacerun:yes'>        </span>- Lateral oponente baja,
+       marcaje de pivote</li>
+   <li><span style='mso-spacerun:yes'>        </span>- Lateral opuesto aumenta
+       profundidad.</li>
+   <br>
+   <br>
+   <li><span style='mso-spacerun:yes'>    </span>AVANZADO.-</li>
+   <li><span style='mso-spacerun:yes'>        </span>-<span
+       style='mso-spacerun:yes'>   </span>opción de línea de pase entre los dos
+       primeras</li>
+   <li><span style='mso-spacerun:yes'>        </span>-<span
+       style='mso-spacerun:yes'>   </span>cambio de sistema<span
+       style='mso-spacerun:yes'>  </span>a 5+1</li>
+   <li><span style='mso-spacerun:yes'>        </span>-<span
+       style='mso-spacerun:yes'>   </span>cambio profundo a 4+2 con ayuda<span
+       style='mso-spacerun:yes'>  </span>lateral</li>
+   <br>
+   <br>
+   <li></li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>57</font></div>
+  </td>
+  <td>
+  <div id=PPTP57 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0024.htm');" id=PPTL57><span
+  style='mso-spacerun:yes'> </span>DESDOBLAMIENTO CENTRAL</a></font></div>
+  <div id=PPTC57 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>   </span>AVANZADO.-</li>
+   <li><span style='mso-spacerun:yes'>     </span>a.-<span
+       style='mso-spacerun:yes'>   </span>flotación entre primeras líneas.</li>
+   <li><span style='mso-spacerun:yes'>     </span>b.-<span
+       style='mso-spacerun:yes'>   </span>marcaje a lateral mas próximo.</li>
+   <li><span style='mso-spacerun:yes'>     </span>c.-<span
+       style='mso-spacerun:yes'>   </span>marcaje<span
+       style='mso-spacerun:yes'>  </span>lateral opuesto<span
+       style='mso-spacerun:yes'>  </span>zona de balón</li>
+   <li><span style='mso-spacerun:yes'>     </span>d.-<span
+       style='mso-spacerun:yes'>   </span>trabajo en zona de balón</li>
+   <li><span style='mso-spacerun:yes'>     </span>e.-<span
+       style='mso-spacerun:yes'>   </span>disminuir profundidad<span
+       style='mso-spacerun:yes'>  </span>a 7 metros.</li>
+   <li><span style='mso-spacerun:yes'>     </span>f.-<span
+       style='mso-spacerun:yes'>    </span>cambio de sistema<span
+       style='mso-spacerun:yes'>  </span>a<span style='mso-spacerun:yes'> 
+       </span>6:0<span style='mso-spacerun:yes'>  </span>5+1<span
+       style='mso-spacerun:yes'>  </span>4:2 .</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>58</font></div>
+  </td>
+  <td>
+  <div id=PPTP58 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0083.htm');" id=PPTL58>DESDOBLAMIENTO CENTRAL</a></font></div>
+  <div id=PPTC58 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Solución 1:Desdoblamiento de B con balón</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>59</font></div>
+  </td>
+  <td>
+  <div id=PPTP59 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0084.htm');" id=PPTL59>DESDOBLAMIENTO CENTRAL</a></font></div>
+  <div id=PPTC59 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Solución 2:Desdoblamiento de B con balón</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>60</font></div>
+  </td>
+  <td>
+  <div id=PPTP60 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0073.htm');" id=PPTL60>SITUACIONES ANTE SAQUE
+  DE FALTAS</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>61</font></div>
+  </td>
+  <td>
+  <div id=PPTP61 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0072.htm');" id=PPTL61>CONTRAATAQUE DESDE EL
+  5:1</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>62</font></div>
+  </td>
+  <td>
+  <div id=PPTP62 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0078.htm');" id=PPTL62>DEFENSA EN SUPERIORIDAD</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>63</font></div>
+  </td>
+  <td>
+  <div id=PPTP63 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0079.htm');" id=PPTL63>DEFENSA EN INFERIORIDAD</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>64</font></div>
+  </td>
+  <td>
+  <div id=PPTP64 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0036.htm');" id=PPTL64>CONTRAATAQUE DESDE EL
+  5:1</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>65</font></div>
+  </td>
+  <td>
+  <div id=PPTP65 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0048.htm');" id=PPTL65>CONTRAATAQUE DESDE 5:1</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>66</font></div>
+  </td>
+  <td>
+  <div id=PPTP66 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0074.htm');" id=PPTL66>2ª OLEADA</a></font></div>
+  <div id=PPTC66 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Realizar algun accion:</li>
+   <ul>
+    <li>Latera – lateral</li>
+    <li>Desdoblamiento de lateral</li>
+    <ul>
+     <li>Pase al extremo y desdoblamiento.</li>
+    </ul>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>67</font></div>
+  </td>
+  <td>
+  <div id=PPTP67 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0046.htm');" id=PPTL67>PRACTICA DE
+  BASCULACIONES</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>68</font></div>
+  </td>
+  <td>
+  <div id=PPTP68 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0047.htm');" id=PPTL68><span
+  style='mso-spacerun:yes'> </span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>69</font></div>
+  </td>
+  <td>
+  <div id=PPTP69 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0051.htm');" id=PPTL69>DISUADIR / DISUASION</a></font></div>
+  <div id=PPTC69 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>DISUADIR &nbsp;&nbsp;&nbsp;&nbsp; Es impedir que el adversario reciba el
+       balón, mostrando al adversario una posibilidad clara de recuperar el
+       balón y por tanto disuadir de ese pase.</li>
+   <br>
+   <br>
+   <li>Objetivos del Monitor</li>
+   <li>Pasar de la disuasión involuntaria a la intencional.</li>
+   <li>Uso de la disuasión para una mejora de la defensa colectiva.</li>
+   <li>Uso de la disuasión para entorpecer la circulación de balón.</li>
+   <li>Uso de la disuasión para evitar el juego en las zonas mas débiles de la
+       defensa llevando el ataque a zonas mas convenientes para nuestro interés
+       defensivo.</li>
+   <li></li>
+   <li>Objetivos del Juego</li>
+   <li>Entorpecer la circulación de balón.</li>
+   <li>Evitar el juego en las zonas mas débiles de la defensa.</li>
+   <li>Relentizar el ritmo de juego en ocasiones puntuales.</li>
+   <br>
+   <br>
+   <li>Ejecucion de la Accion Tactica¿CÓMO disuadir el pase?</li>
+   <li>	Correr para colocarse en la trayectoria de pase.Actuar en el momento
+       preciso.Orientación defensiva particular para controlar al pasador y al
+       receptor.Además de la disuasión no hay que olvidar controlar al posible
+       receptor del balón en todo momento.</li>
+   <li>Ideas Claves</li>
+   <br>
+   <br>
+   <li>El uso de la disuasión para privar de balón a cierto defensores puede
+       beneficiar la defensa colectiva.</li>
+   <li>El uso de la disuasión para obligar al contrario al uso de zonas del
+       campo que a nosotros nos interesan defensivamente.</li>
+   <li>Es un trabajo continuo en ocasiones y sin patrones de actuacion fijos.</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>70</font></div>
+  </td>
+  <td>
+  <div id=PPTP70 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0062.htm');" id=PPTL70>Desposesión del balón</a></font></div>
+  <div id=PPTC70 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>Definicion:</li>
+   <ul>
+    <li>Es la accion de desviar o quitar el balón al adversario, dentro de los
+        margenes estrictamente reglamentarios.</li>
+    <li>Ver pagina : http://www.futbolcarrasco.com/apartados/inef/1curso/9.pdf</li>
+    <br>
+    <br>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>71</font></div>
+  </td>
+  <td>
+  <div id=PPTP71 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0075.htm');" id=PPTL71>Bibliografia y
+  documentacion</a></font></div>
+  <div id=PPTC71 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <br>
+   <li>DEFENSAS CON AVANZADO EN ZONA CENTRAL (Valero Riber)</li>
+   <li>JUEGO COLECTIVO DEFENSIVO. PROGRAMACIÓN DEFENSIVA DEL EQUIPO MAJADAHONDA</li>
+   <li>DEFENSA 2005-2006 (Iñaki Ordoñez)</li>
+   <li>PLANIFICACIÓN DEL TRABAJO DEFENSIVO (Pablo Herbello Novas)</li>
+   <br>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>72</font></div>
+  </td>
+  <td>
+  <div id=PPTP72 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0067.htm');" id=PPTL72>Figuras</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>73</font></div>
+  </td>
+  <td>
+  <div id=PPTP73 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0068.htm');" id=PPTL73>Figuras</a></font></div>
+  </td>
+ </tr>
+</table>
+
+
+
+</div>
+
+<div style='display:none'><a href=master17.htm></a><a href=master17.xml></a><a
+href=preview.wmf></a><a href=master18.htm></a><a href=master18.xml></a><a
+href=master02.htm></a><a href=pres.xml></a><a href=slide0001.htm></a><a
+href="master18_image001.gif"></a><a href="master18_image002.gif"></a><a
+href=slide0049.htm></a><a href="master17_image003.gif"></a><a
+href="master17_image004.gif"></a><a href=slide0002.htm></a><a
+href=slide0029.htm></a><a href=slide0050.htm></a><a href=slide0003.htm></a><a
+href=slide0030.htm></a><a href=slide0053.htm></a><a href=slide0052.htm></a><a
+href="slide0052_image005.gif"></a><a href="slide0052_image006.gif"></a><a
+href=slide0054.htm></a><a href="slide0054_image007.gif"></a><a
+href="slide0054_image008.gif"></a><a href=slide0055.htm></a><a
+href="slide0055_image009.gif"></a><a href="slide0055_image010.gif"></a><a
+href=slide0056.htm></a><a href="slide0056_image011.gif"></a><a
+href="slide0056_image012.gif"></a><a href=slide0031.htm></a><a
+href=slide0057.htm></a><a href="slide0057_image013.png"></a><a
+href="slide0057_image014.jpg"></a><a href="slide0057_image015.png"></a><a
+href="slide0057_image016.jpg"></a><a href="slide0057_image017.png"></a><a
+href="slide0057_image018.jpg"></a><a href="slide0057_image019.png"></a><a
+href="slide0057_image020.jpg"></a><a href="slide0057_image021.gif"></a><a
+href=slide0032.htm></a><a href=slide0033.htm></a><a href=slide0080.htm></a><a
+href="slide0080_image022.png"></a><a href="slide0080_image023.jpg"></a><a
+href="slide0080_image024.png"></a><a href="slide0080_image025.jpg"></a><a
+href="slide0080_image026.png"></a><a href="slide0080_image027.jpg"></a><a
+href="slide0080_image028.png"></a><a href="slide0080_image029.jpg"></a><a
+href=slide0059.htm></a><a href="slide0059_image030.gif"></a><a
+href="slide0059_image031.gif"></a><a href=slide0060.htm></a><a
+href=slide0061.htm></a><a href="slide0061_image032.jpg"></a><a
+href="slide0061_image033.gif"></a><a href="slide0061_image034.gif"></a><a
+href="slide0061_image035.gif"></a><a href="slide0061_image036.gif"></a><a
+href="slide0061_image037.gif"></a><a href="slide0061_image038.gif"></a><a
+href="slide0061_image039.gif"></a><a href="slide0061_image040.gif"></a><a
+href="slide0061_image041.gif"></a><a href="slide0061_image042.gif"></a><a
+href="slide0061_image043.gif"></a><a href="slide0061_image044.gif"></a><a
+href="slide0061_image045.gif"></a><a href="slide0061_image046.gif"></a><a
+href="slide0061_image047.gif"></a><a href="slide0061_image048.gif"></a><a
+href=slide0081.htm></a><a href="slide0081_image049.gif"></a><a
+href="slide0081_image050.gif"></a><a href="slide0081_image051.gif"></a><a
+href="slide0081_image052.gif"></a><a href="slide0081_image053.gif"></a><a
+href="slide0081_image054.gif"></a><a href="slide0081_image055.gif"></a><a
+href="slide0081_image056.gif"></a><a href="slide0081_image057.gif"></a><a
+href="slide0081_image058.gif"></a><a href="slide0081_image059.gif"></a><a
+href="slide0081_image060.gif"></a><a href="slide0081_image061.gif"></a><a
+href="slide0081_image062.gif"></a><a href=slide0082.htm></a><a
+href="slide0082_image063.gif"></a><a href="slide0082_image064.gif"></a><a
+href="slide0082_image065.gif"></a><a href="slide0082_image066.gif"></a><a
+href="slide0082_image067.gif"></a><a href="slide0082_image068.gif"></a><a
+href="slide0082_image069.gif"></a><a href="slide0082_image070.gif"></a><a
+href="slide0082_image071.gif"></a><a href="slide0082_image072.gif"></a><a
+href="slide0082_image073.gif"></a><a href="slide0082_image074.gif"></a><a
+href="slide0082_image075.gif"></a><a href="slide0082_image076.gif"></a><a
+href="slide0082_image077.gif"></a><a href="slide0082_image078.gif"></a><a
+href="slide0082_image079.gif"></a><a href=slide0058.htm></a><a
+href="slide0058_image080.gif"></a><a href=slide0063.htm></a><a
+href=slide0034.htm></a><a href=slide0007.htm></a><a href=slide0008.htm></a><a
+href=slide0010.htm></a><a href=slide0011.htm></a><a href=slide0012.htm></a><a
+href=slide0013.htm></a><a href=slide0076.htm></a><a href=slide0077.htm></a><a
+href=slide0014.htm></a><a href=slide0015.htm></a><a href=slide0016.htm></a><a
+href=slide0038.htm></a><a href=slide0039.htm></a><a href=slide0017.htm></a><a
+href=slide0040.htm></a><a href=slide0019.htm></a><a href=slide0020.htm></a><a
+href=slide0041.htm></a><a href=slide0064.htm></a><a href=slide0021.htm></a><a
+href=slide0035.htm></a><a href=slide0066.htm></a><a
+href="slide0066_image081.gif"></a><a href="slide0066_image082.gif"></a><a
+href="slide0066_image083.gif"></a><a href="slide0066_image084.gif"></a><a
+href="slide0066_image085.gif"></a><a href="slide0066_image086.gif"></a><a
+href="slide0066_image087.gif"></a><a href="slide0066_image088.gif"></a><a
+href="slide0066_image089.gif"></a><a href="slide0066_image090.gif"></a><a
+href="slide0066_image091.gif"></a><a href="slide0066_image092.gif"></a><a
+href="slide0066_image093.gif"></a><a href=slide0069.htm></a><a
+href="slide0069_image094.gif"></a><a href="slide0069_image095.gif"></a><a
+href="slide0069_image096.gif"></a><a href="slide0069_image097.gif"></a><a
+href="slide0069_image098.gif"></a><a href="slide0069_image099.gif"></a><a
+href="slide0069_image100.gif"></a><a href="slide0069_image101.gif"></a><a
+href="slide0069_image102.gif"></a><a href="slide0069_image103.gif"></a><a
+href="slide0069_image104.gif"></a><a href="slide0069_image105.gif"></a><a
+href="slide0069_image106.gif"></a><a href="slide0069_image107.gif"></a><a
+href="slide0069_image108.gif"></a><a href="slide0069_image109.gif"></a><a
+href=slide0042.htm></a><a href=slide0071.htm></a><a
+href="slide0071_image110.gif"></a><a href="slide0071_image111.gif"></a><a
+href="slide0071_image112.gif"></a><a href="slide0071_image113.gif"></a><a
+href="slide0071_image114.gif"></a><a href="slide0071_image115.gif"></a><a
+href="slide0071_image116.gif"></a><a href="slide0071_image117.gif"></a><a
+href="slide0071_image118.gif"></a><a href="slide0071_image119.gif"></a><a
+href="slide0071_image120.gif"></a><a href="slide0071_image121.gif"></a><a
+href="slide0071_image122.gif"></a><a href="slide0071_image123.gif"></a><a
+href=slide0043.htm></a><a href=slide0044.htm></a><a href=slide0065.htm></a><a
+href=slide0022.htm></a><a href=slide0045.htm></a><a href=slide0023.htm></a><a
+href=slide0024.htm></a><a href=slide0083.htm></a><a
+href="slide0083_image124.gif"></a><a href="slide0083_image125.gif"></a><a
+href="slide0083_image126.gif"></a><a href="slide0083_image127.gif"></a><a
+href="slide0083_image128.gif"></a><a href="slide0083_image129.gif"></a><a
+href="slide0083_image130.gif"></a><a href="slide0083_image131.gif"></a><a
+href="slide0083_image132.gif"></a><a href="slide0083_image133.gif"></a><a
+href="slide0083_image134.gif"></a><a href="slide0083_image135.gif"></a><a
+href="slide0083_image136.gif"></a><a href="slide0083_image137.gif"></a><a
+href=slide0084.htm></a><a href="slide0084_image138.gif"></a><a
+href="slide0084_image139.gif"></a><a href="slide0084_image140.gif"></a><a
+href="slide0084_image141.gif"></a><a href="slide0084_image142.gif"></a><a
+href="slide0084_image143.gif"></a><a href="slide0084_image144.gif"></a><a
+href="slide0084_image145.gif"></a><a href="slide0084_image146.gif"></a><a
+href="slide0084_image147.gif"></a><a href="slide0084_image148.gif"></a><a
+href="slide0084_image149.gif"></a><a href="slide0084_image150.gif"></a><a
+href="slide0084_image151.gif"></a><a href=slide0073.htm></a><a
+href=slide0072.htm></a><a href=slide0078.htm></a><a href=slide0079.htm></a><a
+href=slide0036.htm></a><a href="slide0036_image152.jpg"></a><a
+href="slide0036_image153.jpg"></a><a href="slide0036_image154.gif"></a><a
+href="slide0036_image155.gif"></a><a href="slide0036_image156.gif"></a><a
+href="slide0036_image157.gif"></a><a href="slide0036_image158.gif"></a><a
+href="slide0036_image159.gif"></a><a href="slide0036_image160.gif"></a><a
+href="slide0036_image161.gif"></a><a href=slide0048.htm></a><a
+href="slide0048_image162.jpg"></a><a href="slide0048_image163.gif"></a><a
+href="slide0048_image164.gif"></a><a href="slide0048_image165.gif"></a><a
+href="slide0048_image166.gif"></a><a href="slide0048_image167.gif"></a><a
+href="slide0048_image168.gif"></a><a href="slide0048_image169.gif"></a><a
+href=slide0074.htm></a><a href=slide0046.htm></a><a
+href="slide0046_image170.gif"></a><a href="slide0046_image171.gif"></a><a
+href="slide0046_image172.gif"></a><a href="slide0046_image173.gif"></a><a
+href="slide0046_image174.gif"></a><a href="slide0046_image175.gif"></a><a
+href=slide0047.htm></a><a href=slide0051.htm></a><a href=slide0062.htm></a><a
+href=slide0075.htm></a><a href=slide0067.htm></a><a
+href="slide0067_image176.gif"></a><a href="slide0067_image177.gif"></a><a
+href="slide0067_image178.gif"></a><a href="slide0067_image179.jpg"></a><a
+href="slide0067_image180.gif"></a><a href=slide0068.htm></a><a
+href="slide0068_image181.gif"></a><a href="slide0068_image182.gif"></a><a
+href="slide0068_image183.gif"></a><a href="slide0068_image184.gif"></a><a
+href="slide0068_image185.gif"></a><a href=master01.htm></a><a
+href="master17_stylesheet.css"></a><a href=script.js></a><a
+href="../lbh-defensa-5_1_v2_web.htm"></a><a href=fullscreen.htm></a><a
+href="notes_flag.gif"></a><a href=buttons.gif></a><a href=frame.htm></a><a
+href=outline.htm></a></div>
+
+</body>
+
+</html>
